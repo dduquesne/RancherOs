@@ -1,0 +1,183 @@
+Sending build context to Docker daemon 5.698 MB
+Step 1/30 : FROM ubuntu:16.04
+ ---> 20c44cd7596f
+Step 2/30 : RUN apt-get update     && apt-get install -y build-essential wget libncurses5-dev unzip bc curl python rsync ccache git vim libssl-dev kmod gnupg2 locales
+ ---> Using cache
+ ---> 97dcdba7447d
+Step 3/30 : RUN curl -sL https://releases.rancher.com/dapper/latest/dapper-$(uname -s)-$(uname -m | sed 's/arm.*/arm/') > /usr/bin/dapper     && chmod +x /usr/bin/dapper
+ ---> Using cache
+ ---> e23a10023cd9
+Step 4/30 : ENTRYPOINT ./scripts/entry
+ ---> Using cache
+ ---> 20086aefe402
+Step 5/30 : CMD ci
+ ---> Using cache
+ ---> 5d97a0cb22d6
+Step 6/30 : RUN locale-gen en_US.UTF-8
+ ---> Using cache
+ ---> bbf227d95302
+Step 7/30 : ENV LANG en_US.UTF-8
+ ---> Using cache
+ ---> 87cf8bf7dd9f
+Step 8/30 : ENV DAPPER_ENV ARCH VERSION DEV_BUILD GITHUB_TOKEN KERNEL_TAG
+ ---> Using cache
+ ---> 6ec7ad3a2fbe
+Step 9/30 : ENV DAPPER_DOCKER_SOCKET true
+ ---> Using cache
+ ---> 77965eb2cc5c
+Step 10/30 : ENV DAPPER_SOURCE /source
+ ---> Using cache
+ ---> c441b2ff3f8b
+Step 11/30 : ENV DAPPER_OUTPUT ./dist
+ ---> Using cache
+ ---> 3014ac184a7a
+Step 12/30 : ARG KERNEL_TAG=${KERNEL_TAG}
+ ---> Using cache
+ ---> 7f5ba7902832
+Step 13/30 : ARG DAPPER_HOST_ARCH=amd64
+ ---> Using cache
+ ---> 5281297e0369
+Step 14/30 : ARG HOST_ARCH=${DAPPER_HOST_ARCH}
+ ---> Using cache
+ ---> 8d6f89d9ad3c
+Step 15/30 : ARG ARCH=${HOST_ARCH}
+ ---> Using cache
+ ---> 2a65777d3b12
+Step 16/30 : ENV SHELL /bin/bash
+ ---> Using cache
+ ---> b7da161e9b11
+Step 17/30 : ENV HOME ${DAPPER_SOURCE}
+ ---> Using cache
+ ---> 6182769ce67a
+Step 18/30 : WORKDIR ${DAPPER_SOURCE}
+ ---> Using cache
+ ---> 2b59ae546170
+Step 19/30 : ARG OS_REPO=rancher
+ ---> Using cache
+ ---> be73fbe5f098
+Step 20/30 : ARG DOCKER_VERSION=1.10.3
+ ---> Using cache
+ ---> 1afbc27dddad
+Step 21/30 : ARG DOCKER_PATCH_VERSION=v${DOCKER_VERSION}-ros1
+ ---> Using cache
+ ---> 147a7a4bb2c4
+Step 22/30 : ARG DOCKER_URL_amd64=https://get.docker.com/builds/Linux/x86_64/docker-${DOCKER_VERSION}
+ ---> Using cache
+ ---> 8b47afaf5898
+Step 23/30 : ARG DOCKER_URL_arm=https://github.com/rancher/docker/releases/download/${DOCKER_PATCH_VERSION}/docker-${DOCKER_VERSION}_arm
+ ---> Using cache
+ ---> d3b3bac2b398
+Step 24/30 : ARG DOCKER_URL_arm64=https://github.com/rancher/docker/releases/download/${DOCKER_PATCH_VERSION}/docker-${DOCKER_VERSION}_arm64
+ ---> Using cache
+ ---> 28387b5c7dc2
+Step 25/30 : ENV DOCKER_URL DOCKER_URL_${ARCH} ARCH ${ARCH} DISTRIB_ID ${DISTRIB_ID} DOCKER_PATCH_VERSION ${DOCKER_PATCH_VERSION} DOCKER_URL ${DOCKER_URL} DOCKER_URL_amd64 ${DOCKER_URL_amd64} DOCKER_URL_arm64 ${DOCKER_URL_arm64} DOCKER_URL_arm ${DOCKER_URL_arm} DOCKER_VERSION ${DOCKER_VERSION} HOST_ARCH ${HOST_ARCH} OS_REPO ${OS_REPO} KERNEL_TAG ${KERNEL_TAG}
+ ---> Running in 79e2582e0053
+ ---> c5528f69708c
+Removing intermediate container 79e2582e0053
+Step 26/30 : RUN curl -fL ${DOCKER_URL_amd64} > /usr/bin/docker &&     chmod +x /usr/bin/docker
+ ---> Running in 794025a0ea06
+[91m  % Total    % Received % Xferd  Average Sp[0m[91meed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0[0m[91m 44 33.2M   44 14.7M    0     0  16.0M      0  0:00:02 --:--:--  0:00:02 16.0M[0m[91m100 3[0m[91m3.2M[0m[91m [0m[91m 100[0m[91m [0m[91m33.2M   [0m[91m [0m[91m0 [0m[91m [0m[91m   0  17[0m[91m.[0m[91m8M[0m[91m [0m[91m     0  [0m[91m0[0m[91m:0[0m[91m0[0m[91m:01  0:0[0m[91m0[0m[91m:0[0m[91m1[0m[91m --:--:-[0m[91m-[0m[91m 1[0m[91m7[0m[91m.8M
+[0m ---> ac4929cda5b5
+Removing intermediate container 794025a0ea06
+Step 27/30 : ENV KERNEL_VERSION ${KERNEL_TAG}-rancher
+ ---> Running in 3e2318f82449
+ ---> 69779ad6fdd3
+Removing intermediate container 3e2318f82449
+Step 28/30 : ENV KERNEL_URL https://cdn.kernel.org/pub/linux/kernel/v4.x/
+ ---> Running in fb0cd0a2ee4a
+ ---> f00a7952e527
+Removing intermediate container fb0cd0a2ee4a
+Step 29/30 : ENV KERNEL_TAR linux-${KERNEL_TAG}.tar.xz
+ ---> Running in 12db5a793fe4
+ ---> af67842fc787
+Removing intermediate container 12db5a793fe4
+Step 30/30 : ENV KERNEL_SIGN linux-${KERNEL_TAG}.tar.sign
+ ---> Running in da5dd42cd9b3
+ ---> eadb5ea629a8
+Removing intermediate container da5dd42cd9b3
+Successfully built eadb5ea629a8
+Sending build context to Docker daemon 5.704 MB
+Step 1/2 : FROM os-kernel-master:HLfmhRD
+ ---> eadb5ea629a8
+Step 2/2 : COPY . /source/
+ ---> 428832e7b444
+Removing intermediate container af497b036de8
+Successfully built 428832e7b444
+FIRMWARE test: /source/scripts/firmware
+Cloning into 'linux-firmware'...
+remote: Counting objects: 5969, done.[K
+remote: Compressing objects:   0% (1/102)   [Kremote: Compressing objects:   1% (2/102)   [Kremote: Compressing objects:   2% (3/102)   [Kremote: Compressing objects:   3% (4/102)   [Kremote: Compressing objects:   4% (5/102)   [Kremote: Compressing objects:   5% (6/102)   [Kremote: Compressing objects:   6% (7/102)   [Kremote: Compressing objects:   7% (8/102)   [Kremote: Compressing objects:   8% (9/102)   [Kremote: Compressing objects:   9% (10/102)   [Kremote: Compressing objects:  10% (11/102)   [Kremote: Compressing objects:  11% (12/102)   [Kremote: Compressing objects:  12% (13/102)   [Kremote: Compressing objects:  13% (14/102)   [Kremote: Compressing objects:  14% (15/102)   [Kremote: Compressing objects:  15% (16/102)   [Kremote: Compressing objects:  16% (17/102)   [Kremote: Compressing objects:  17% (18/102)   [Kremote: Compressing objects:  18% (19/102)   [Kremote: Compressing objects:  19% (20/102)   [Kremote: Compressing objects:  20% (21/102)   [Kremote: Compressing objects:  21% (22/102)   [Kremote: Compressing objects:  22% (23/102)   [Kremote: Compressing objects:  23% (24/102)   [Kremote: Compressing objects:  24% (25/102)   [Kremote: Compressing objects:  25% (26/102)   [Kremote: Compressing objects:  26% (27/102)   [Kremote: Compressing objects:  27% (28/102)   [Kremote: Compressing objects:  28% (29/102)   [Kremote: Compressing objects:  29% (30/102)   [Kremote: Compressing objects:  30% (31/102)   [Kremote: Compressing objects:  31% (32/102)   [Kremote: Compressing objects:  32% (33/102)   [Kremote: Compressing objects:  33% (34/102)   [Kremote: Compressing objects:  34% (35/102)   [Kremote: Compressing objects:  35% (36/102)   [Kremote: Compressing objects:  36% (37/102)   [Kremote: Compressing objects:  37% (38/102)   [Kremote: Compressing objects:  38% (39/102)   [Kremote: Compressing objects:  39% (40/102)   [Kremote: Compressing objects:  40% (41/102)   [Kremote: Compressing objects:  41% (42/102)   [Kremote: Compressing objects:  42% (43/102)   [Kremote: Compressing objects:  43% (44/102)   [Kremote: Compressing objects:  44% (45/102)   [Kremote: Compressing objects:  45% (46/102)   [Kremote: Compressing objects:  46% (47/102)   [Kremote: Compressing objects:  47% (48/102)   [Kremote: Compressing objects:  48% (49/102)   [Kremote: Compressing objects:  49% (50/102)   [Kremote: Compressing objects:  50% (51/102)   [Kremote: Compressing objects:  51% (53/102)   [Kremote: Compressing objects:  52% (54/102)   [Kremote: Compressing objects:  53% (55/102)   [Kremote: Compressing objects:  54% (56/102)   [Kremote: Compressing objects:  55% (57/102)   [Kremote: Compressing objects:  56% (58/102)   [Kremote: Compressing objects:  57% (59/102)   [Kremote: Compressing objects:  58% (60/102)   [Kremote: Compressing objects:  59% (61/102)   [Kremote: Compressing objects:  60% (62/102)   [Kremote: Compressing objects:  61% (63/102)   [Kremote: Compressing objects:  62% (64/102)   [Kremote: Compressing objects:  63% (65/102)   [Kremote: Compressing objects:  64% (66/102)   [Kremote: Compressing objects:  65% (67/102)   [Kremote: Compressing objects:  66% (68/102)   [Kremote: Compressing objects:  67% (69/102)   [Kremote: Compressing objects:  68% (70/102)   [Kremote: Compressing objects:  69% (71/102)   [Kremote: Compressing objects:  70% (72/102)   [Kremote: Compressing objects:  71% (73/102)   [Kremote: Compressing objects:  72% (74/102)   [Kremote: Compressing objects:  73% (75/102)   [Kremote: Compressing objects:  74% (76/102)   [Kremote: Compressing objects:  75% (77/102)   [Kremote: Compressing objects:  76% (78/102)   [Kremote: Compressing objects:  77% (79/102)   [Kremote: Compressing objects:  78% (80/102)   [Kremote: Compressing objects:  79% (81/102)   [Kremote: Compressing objects:  80% (82/102)   [Kremote: Compressing objects:  81% (83/102)   [Kremote: Compressing objects:  82% (84/102)   [Kremote: Compressing objects:  83% (85/102)   [Kremote: Compressing objects:  84% (86/102)   [Kremote: Compressing objects:  85% (87/102)   [Kremote: Compressing objects:  86% (88/102)   [Kremote: Compressing objects:  87% (89/102)   [Kremote: Compressing objects:  88% (90/102)   [Kremote: Compressing objects:  89% (91/102)   [Kremote: Compressing objects:  90% (92/102)   [Kremote: Compressing objects:  91% (93/102)   [Kremote: Compressing objects:  92% (94/102)   [Kremote: Compressing objects:  93% (95/102)   [Kremote: Compressing objects:  94% (96/102)   [Kremote: Compressing objects:  95% (97/102)   [Kremote: Compressing objects:  96% (98/102)   [Kremote: Compressing objects:  97% (99/102)   [Kremote: Compressing objects:  98% (100/102)   [Kremote: Compressing objects:  99% (101/102)   [Kremote: Compressing objects: 100% (102/102)   [Kremote: Compressing objects: 100% (102/102), done.[K
+Receiving objects:   0% (1/5969)   Receiving objects:   1% (60/5969)   Receiving objects:   2% (120/5969)   Receiving objects:   3% (180/5969)   Receiving objects:   4% (239/5969)   Receiving objects:   5% (299/5969)   Receiving objects:   6% (359/5969)   Receiving objects:   7% (418/5969)   Receiving objects:   8% (478/5969)   Receiving objects:   9% (538/5969)   Receiving objects:  10% (597/5969)   Receiving objects:  11% (657/5969)   Receiving objects:  12% (717/5969)   Receiving objects:  13% (776/5969)   Receiving objects:  14% (836/5969)   Receiving objects:  15% (896/5969)   Receiving objects:  16% (956/5969)   Receiving objects:  17% (1015/5969)   Receiving objects:  18% (1075/5969)   Receiving objects:  19% (1135/5969)   Receiving objects:  20% (1194/5969)   Receiving objects:  21% (1254/5969)   Receiving objects:  22% (1314/5969), 4.40 MiB | 8.78 MiB/s   Receiving objects:  22% (1324/5969), 6.43 MiB | 6.39 MiB/s   Receiving objects:  23% (1373/5969), 6.43 MiB | 6.39 MiB/s   Receiving objects:  24% (1433/5969), 8.55 MiB | 5.64 MiB/s   Receiving objects:  24% (1436/5969), 8.55 MiB | 5.64 MiB/s   Receiving objects:  24% (1467/5969), 13.41 MiB | 5.28 MiB/s   Receiving objects:  24% (1492/5969), 18.73 MiB | 5.28 MiB/s   Receiving objects:  25% (1493/5969), 21.45 MiB | 5.29 MiB/s   Receiving objects:  26% (1552/5969), 24.38 MiB | 5.33 MiB/s   Receiving objects:  27% (1612/5969), 24.38 MiB | 5.33 MiB/s   Receiving objects:  27% (1644/5969), 24.38 MiB | 5.33 MiB/s   Receiving objects:  28% (1672/5969), 24.38 MiB | 5.33 MiB/s   Receiving objects:  29% (1732/5969), 30.57 MiB | 5.28 MiB/s   Receiving objects:  29% (1750/5969), 30.57 MiB | 5.28 MiB/s   Receiving objects:  30% (1791/5969), 33.51 MiB | 5.47 MiB/s   Receiving objects:  31% (1851/5969), 36.58 MiB | 5.65 MiB/s   Receiving objects:  31% (1865/5969), 36.58 MiB | 5.65 MiB/s   Receiving objects:  31% (1893/5969), 43.04 MiB | 5.92 MiB/s   Receiving objects:  32% (1911/5969), 46.61 MiB | 6.15 MiB/s   Receiving objects:  32% (1934/5969), 54.04 MiB | 6.56 MiB/s   Receiving objects:  32% (1948/5969), 57.69 MiB | 6.69 MiB/s   Receiving objects:  33% (1970/5969), 61.32 MiB | 6.80 MiB/s   Receiving objects:  34% (2030/5969), 64.92 MiB | 6.93 MiB/s   Receiving objects:  34% (2036/5969), 64.92 MiB | 6.93 MiB/s   Receiving objects:  34% (2089/5969), 72.81 MiB | 7.31 MiB/s   Receiving objects:  35% (2090/5969), 72.81 MiB | 7.31 MiB/s   Receiving objects:  36% (2149/5969), 72.81 MiB | 7.31 MiB/s   Receiving objects:  37% (2209/5969), 72.81 MiB | 7.31 MiB/s   Receiving objects:  38% (2269/5969), 72.81 MiB | 7.31 MiB/s   Receiving objects:  39% (2328/5969), 77.07 MiB | 7.49 MiB/s   Receiving objects:  39% (2366/5969), 81.13 MiB | 7.60 MiB/s   Receiving objects:  40% (2388/5969), 81.13 MiB | 7.60 MiB/s   Receiving objects:  41% (2448/5969), 81.13 MiB | 7.60 MiB/s   Receiving objects:  42% (2507/5969), 85.12 MiB | 7.59 MiB/s   Receiving objects:  43% (2567/5969), 85.12 MiB | 7.59 MiB/s   Receiving objects:  44% (2627/5969), 85.12 MiB | 7.59 MiB/s   Receiving objects:  45% (2687/5969), 85.12 MiB | 7.59 MiB/s   Receiving objects:  45% (2742/5969), 89.23 MiB | 7.73 MiB/s   Receiving objects:  46% (2746/5969), 89.23 MiB | 7.73 MiB/s   Receiving objects:  47% (2806/5969), 93.23 MiB | 7.80 MiB/s   Receiving objects:  48% (2866/5969), 93.23 MiB | 7.80 MiB/s   Receiving objects:  49% (2925/5969), 93.23 MiB | 7.80 MiB/s   Receiving objects:  50% (2985/5969), 93.23 MiB | 7.80 MiB/s   Receiving objects:  51% (3045/5969), 97.28 MiB | 7.89 MiB/s   Receiving objects:  52% (3104/5969), 97.28 MiB | 7.89 MiB/s   Receiving objects:  52% (3109/5969), 97.28 MiB | 7.89 MiB/s   Receiving objects:  53% (3164/5969), 97.28 MiB | 7.89 MiB/s   Receiving objects:  54% (3224/5969), 101.20 MiB | 7.98 MiB/s   Receiving objects:  55% (3283/5969), 101.20 MiB | 7.98 MiB/s   Receiving objects:  56% (3343/5969), 101.20 MiB | 7.98 MiB/s   Receiving objects:  57% (3403/5969), 105.29 MiB | 8.02 MiB/s   Receiving objects:  58% (3463/5969), 105.29 MiB | 8.02 MiB/s   Receiving objects:  59% (3522/5969), 105.29 MiB | 8.02 MiB/s   Receiving objects:  60% (3582/5969), 105.29 MiB | 8.02 MiB/s   Receiving objects:  60% (3596/5969), 105.29 MiB | 8.02 MiB/s   Receiving objects:  61% (3642/5969), 105.29 MiB | 8.02 MiB/s   Receiving objects:  62% (3701/5969), 105.29 MiB | 8.02 MiB/s   Receiving objects:  63% (3761/5969), 105.29 MiB | 8.02 MiB/s   Receiving objects:  64% (3821/5969), 105.29 MiB | 8.02 MiB/s   Receiving objects:  65% (3880/5969), 109.42 MiB | 8.04 MiB/s   Receiving objects:  66% (3940/5969), 109.42 MiB | 8.04 MiB/s   Receiving objects:  67% (4000/5969), 109.42 MiB | 8.04 MiB/s   Receiving objects:  68% (4059/5969), 109.42 MiB | 8.04 MiB/s   Receiving objects:  69% (4119/5969), 109.42 MiB | 8.04 MiB/s   Receiving objects:  70% (4179/5969), 109.42 MiB | 8.04 MiB/s   Receiving objects:  71% (4238/5969), 109.42 MiB | 8.04 MiB/s   Receiving objects:  72% (4298/5969), 109.42 MiB | 8.04 MiB/s   Receiving objects:  73% (4358/5969), 109.42 MiB | 8.04 MiB/s   Receiving objects:  74% (4418/5969), 113.46 MiB | 8.00 MiB/s   Receiving objects:  75% (4477/5969), 113.46 MiB | 8.00 MiB/s   Receiving objects:  75% (4505/5969), 113.46 MiB | 8.00 MiB/s   Receiving objects:  76% (4537/5969), 117.32 MiB | 7.94 MiB/s   Receiving objects:  77% (4597/5969), 117.32 MiB | 7.94 MiB/s   Receiving objects:  78% (4656/5969), 117.32 MiB | 7.94 MiB/s   Receiving objects:  79% (4716/5969), 117.32 MiB | 7.94 MiB/s   Receiving objects:  80% (4776/5969), 117.32 MiB | 7.94 MiB/s   Receiving objects:  81% (4835/5969), 117.32 MiB | 7.94 MiB/s   Receiving objects:  82% (4895/5969), 117.32 MiB | 7.94 MiB/s   Receiving objects:  83% (4955/5969), 121.43 MiB | 7.97 MiB/s   Receiving objects:  83% (5011/5969), 121.43 MiB | 7.97 MiB/s   Receiving objects:  84% (5014/5969), 121.43 MiB | 7.97 MiB/s   Receiving objects:  85% (5074/5969), 121.43 MiB | 7.97 MiB/s   Receiving objects:  86% (5134/5969), 121.43 MiB | 7.97 MiB/s   Receiving objects:  87% (5194/5969), 125.67 MiB | 8.00 MiB/s   Receiving objects:  88% (5253/5969), 125.67 MiB | 8.00 MiB/s   Receiving objects:  89% (5313/5969), 125.67 MiB | 8.00 MiB/s   Receiving objects:  90% (5373/5969), 125.67 MiB | 8.00 MiB/s   Receiving objects:  91% (5432/5969), 125.67 MiB | 8.00 MiB/s   Receiving objects:  92% (5492/5969), 125.67 MiB | 8.00 MiB/s   Receiving objects:  92% (5521/5969), 129.70 MiB | 8.01 MiB/s   Receiving objects:  93% (5552/5969), 129.70 MiB | 8.01 MiB/s   Receiving objects:  94% (5611/5969), 129.70 MiB | 8.01 MiB/s   Receiving objects:  95% (5671/5969), 129.70 MiB | 8.01 MiB/s   Receiving objects:  96% (5731/5969), 129.70 MiB | 8.01 MiB/s   Receiving objects:  97% (5790/5969), 129.70 MiB | 8.01 MiB/s   Receiving objects:  98% (5850/5969), 129.70 MiB | 8.01 MiB/s   Receiving objects:  98% (5899/5969), 135.54 MiB | 7.00 MiB/s   Receiving objects:  99% (5910/5969), 135.54 MiB | 7.00 MiB/s   remote: Total 5969 (delta 58), reused 0 (delta 0)[K
+Receiving objects: 100% (5969/5969), 137.50 MiB | 6.56 MiB/s   Receiving objects: 100% (5969/5969), 137.51 MiB | 6.37 MiB/s, done.
+Resolving deltas:   0% (0/3699)   Resolving deltas:   1% (39/3699)   Resolving deltas:   2% (84/3699)   Resolving deltas:   3% (111/3699)   Resolving deltas:   4% (149/3699)   Resolving deltas:   5% (190/3699)   Resolving deltas:   6% (227/3699)   Resolving deltas:   7% (262/3699)   Resolving deltas:   8% (321/3699)   Resolving deltas:  10% (399/3699)   Resolving deltas:  13% (484/3699)   Resolving deltas:  31% (1149/3699)   Resolving deltas:  34% (1276/3699)   Resolving deltas:  36% (1347/3699)   Resolving deltas:  41% (1553/3699)   Resolving deltas:  42% (1562/3699)   Resolving deltas:  43% (1612/3699)   Resolving deltas:  44% (1628/3699)   Resolving deltas:  45% (1671/3699)   Resolving deltas:  46% (1708/3699)   Resolving deltas:  47% (1740/3699)   Resolving deltas:  48% (1776/3699)   Resolving deltas:  49% (1835/3699)   Resolving deltas:  50% (1884/3699)   Resolving deltas:  51% (1887/3699)   Resolving deltas:  52% (1929/3699)   Resolving deltas:  53% (1995/3699)   Resolving deltas:  54% (1998/3699)   Resolving deltas:  55% (2042/3699)   Resolving deltas:  56% (2074/3699)   Resolving deltas:  57% (2139/3699)   Resolving deltas:  58% (2147/3699)   Resolving deltas:  60% (2223/3699)   Resolving deltas:  61% (2261/3699)   Resolving deltas:  62% (2301/3699)   Resolving deltas:  63% (2331/3699)   Resolving deltas:  64% (2373/3699)   Resolving deltas:  65% (2439/3699)   Resolving deltas:  66% (2453/3699)   Resolving deltas:  68% (2525/3699)   Resolving deltas:  69% (2555/3699)   Resolving deltas:  70% (2618/3699)   Resolving deltas:  71% (2655/3699)   Resolving deltas:  72% (2664/3699)   Resolving deltas:  74% (2748/3699)   Resolving deltas:  75% (2781/3699)   Resolving deltas:  76% (2814/3699)   Resolving deltas:  77% (2872/3699)   Resolving deltas:  78% (2893/3699)   Resolving deltas:  79% (2926/3699)   Resolving deltas:  80% (2961/3699)   Resolving deltas:  81% (3018/3699)   Resolving deltas:  82% (3035/3699)   Resolving deltas:  83% (3076/3699)   Resolving deltas:  84% (3108/3699)   Resolving deltas:  85% (3147/3699)   Resolving deltas:  86% (3187/3699)   Resolving deltas:  87% (3227/3699)   Resolving deltas:  88% (3257/3699)   Resolving deltas:  89% (3293/3699)   Resolving deltas:  90% (3330/3699)   Resolving deltas:  91% (3367/3699)   Resolving deltas:  92% (3405/3699)   Resolving deltas:  93% (3442/3699)   Resolving deltas:  94% (3483/3699)   Resolving deltas:  95% (3517/3699)   Resolving deltas:  96% (3552/3699)   Resolving deltas:  97% (3589/3699)   Resolving deltas:  98% (3626/3699)   Resolving deltas:  99% (3671/3699)   Resolving deltas: 100% (3699/3699)   Resolving deltas: 100% (3699/3699), done.
+Checking connectivity... done.
+++ dirname ./scripts/download
++ cd ./scripts/..
++ source scripts/build-common
+++ set -e
+++ [[ 4.9.65 == '' ]]
++++ pwd
+++ : /source/assets
+++ : /usr/src
++++ pwd
+++ : /source/config
++++ pwd
+++ : /source/dist
++++ pwd
+++ : /source/patches
+++ mkdir -p /source/dist/kernel
+++ declare -A DEPS
++ mkdir -p /source/assets
++ cd /source/assets
++ '[' '!' -e linux-4.9.65.tar.xz ']'
++ curl -sL https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.9.65.tar.xz
++ curl -sL https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.9.65.tar.sign
++ gpg2 --keyserver hkp://keys.gnupg.net --recv-keys 6092693E
+gpg: directory '/source/.gnupg' created
+gpg: new configuration file '/source/.gnupg/dirmngr.conf' created
+gpg: new configuration file '/source/.gnupg/gpg.conf' created
+gpg: keybox '/source/.gnupg/pubring.kbx' created
+gpg: /source/.gnupg/trustdb.gpg: trustdb created
+gpg: key 6092693E: public key "Greg Kroah-Hartman (Linux kernel stable release signing key) <greg@kroah.com>" imported
+gpg: key 6092693E: public key "Greg Kroah-Hartman <gregkh@linuxfoundation.org>" imported
+gpg: no ultimately trusted keys found
+gpg: Total number processed: 2
+gpg:               imported: 2
++ gpg2 --verify linux-4.9.65.tar.sign -
++ xz -cd linux-4.9.65.tar.xz
+gpg: Signature made Fri 24 Nov 2017 07:33:56 AM UTC using RSA key ID 6092693E
+gpg: Good signature from "Greg Kroah-Hartman <gregkh@linuxfoundation.org>" [unknown]
+gpg:                 aka "Greg Kroah-Hartman <gregkh@kernel.org>" [unknown]
+gpg:                 aka "Greg Kroah-Hartman (Linux kernel stable release signing key) <greg@kroah.com>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 647F 2865 4894 E3BD 4571  99BE 38DB BDC8 6092 693E
++ echo 'linux-4.9.65.tar.xz probably ok'
+linux-4.9.65.tar.xz probably ok
+++ dirname ./scripts/extract
++ cd ./scripts/..
++ source scripts/build-common
+++ set -e
+++ [[ 4.9.65 == '' ]]
++++ pwd
+++ : /source/assets
+++ : /usr/src
++++ pwd
+++ : /source/config
++++ pwd
+++ : /source/dist
++++ pwd
+++ : /source/patches
+++ mkdir -p /source/dist/kernel
+++ declare -A DEPS
++ source scripts/version
++++ git status --porcelain --untracked-files=no
+fatal: Not a git repository (or any of the parent directories): .git
+++ '[' -n '' ']'
++++ git rev-parse --short HEAD
+fatal: Not a git repository (or any of the parent directories): .git
+++ COMMIT=
+build failure see release.log
+time="2017-12-13T14:47:30+01:00" level=fatal msg="exit status 1" 
